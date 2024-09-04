@@ -57,16 +57,6 @@ const EmojiPopover = ({
       </Popover>
     </TooltipProvider>
   );
-
-  {
-    /* <TooltipProvider>
-  <TooltipTrigger>Hover</TooltipTrigger>
-  <TooltipContent>
-    <p>Add to library</p>
-  </TooltipContent>
-</Tooltip>
-</TooltipProvider> */
-  }
 };
 
 export default EmojiPopover;
