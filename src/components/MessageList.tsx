@@ -8,7 +8,7 @@ import { useWorkspaceId } from "@/hooks/useWorkspaceId";
 import useCurrentMember from "@/features/members/api/useCurrentMember";
 import { Loader } from "lucide-react";
 
-const TIME_TRESHHOLD = 5;
+export const TIME_TRESHHOLD = 5;
 
 interface MessageListProps {
   memberName?: string;
@@ -22,7 +22,7 @@ interface MessageListProps {
   canLoadMore: boolean;
 }
 
-const formatDateLabel = (dateKey: string) => {
+export const formatDateLabel = (dateKey: string) => {
   const date = new Date(dateKey);
 
   if (isToday(date)) return "Today";
