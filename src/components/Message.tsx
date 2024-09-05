@@ -13,6 +13,7 @@ import { useRemoveMessage } from "@/features/messages/api/useRemoveMessage";
 import useConfirm from "@/hooks/useConfirm";
 import { useToggleReaction } from "@/features/reaction/api/useToggleReaction";
 import Reactions from "./Reactions";
+import { usePanel } from "@/hooks/usePanel";
 
 const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 const Renderer = dynamic(() => import("@/components/Renderer"), { ssr: false });
@@ -65,6 +66,8 @@ const Message = ({
   threadImage,
   threadTimestamp,
 }: MessageProps) => {
+  const { parentMessageId, onOpenMessage, onClose } = usePanel();
+
   const [ConfirmDialog, confirm] = useConfirm(
     "Delete message",
     "Are you sure you want to delete this message? This cannot be undone."
@@ -115,7 +118,9 @@ const Message = ({
         onSuccess: () => {
           toast.success("Message deleted");
 
-          // TODO: Close thread if opened
+          if (parentMessageId === id) {
+            onClose();
+          }
         },
         onError: (error) => {
           toast.error("Failed to delete message");
@@ -171,7 +176,7 @@ const Message = ({
               isAuthor={isAuthor}
               isPending={isPending}
               handleEdit={() => setEditingId(id)}
-              handleThread={() => {}}
+              handleThread={() => onOpenMessage(id)}
               handleDelete={handleRemove}
               handleReaction={handleReaction}
               hideThreadButton={hideThreadButton}
@@ -244,7 +249,7 @@ const Message = ({
             isAuthor={isAuthor}
             isPending={isPending}
             handleEdit={() => setEditingId(id)}
-            handleThread={() => {}}
+            handleThread={() => onOpenMessage(id)}
             handleDelete={handleRemove}
             handleReaction={handleReaction}
             hideThreadButton={hideThreadButton}
