@@ -16,10 +16,12 @@ import useGetMembers from "@/features/members/api/useGetMembers";
 import UserItem from "./UserItem";
 import { useCreateChannelModal } from "@/features/channels/store/useCreateChannelModal";
 import { useChannelId } from "@/hooks/useChannelId";
+import { useMemberId } from "@/hooks/useMemberId";
 
 const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
   const channelId = useChannelId();
+  const memberId = useMemberId();
 
   const [_open, setOpen] = useCreateChannelModal();
 
@@ -91,6 +93,7 @@ const WorkspaceSidebar = () => {
             id={item._id}
             label={item.user.name}
             image={item.user.image}
+            variant={item._id === memberId ? "active" : "default"}
           />
         ))}
       </WorkspaceSection>
